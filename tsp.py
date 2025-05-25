@@ -40,7 +40,7 @@ def two_opt(route: list, distances: list[list]):
     shortest_distance = calculate_distance(route[:], distances)
     new_route = route[:]
 
-    for _ in range(10):
+    for _ in range(6):
         improved = False
         for i in range(1, len(new_route) - 2):
             for j in range(i + 1, len(new_route)):

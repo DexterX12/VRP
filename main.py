@@ -1,4 +1,4 @@
-from vrp import calculate_vrp, get_total_distance
+from vrp import calculate_vrp, calculate_distance
 from time import time
 from functools import reduce
 
@@ -27,10 +27,10 @@ if __name__ == '__main__':
     current_time = time()
     found_routes = list()
 
-    while time() - current_time < 115:
+    while time() - current_time < 60:
         vehicle_routes = calculate_vrp(coordinates, distances, capacity)
-        total_distance = reduce(lambda x, y: x + y[1], vehicle_routes, vehicle_routes[0][1])
 
+        total_distance = sum(calculate_distance(r, distances) for r in vehicle_routes)
         found_routes.append((vehicle_routes, total_distance))
     
     shortest_route = min(found_routes, key=lambda x: x[1])

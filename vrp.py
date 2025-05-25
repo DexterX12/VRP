@@ -37,6 +37,6 @@ def calculate_vrp(coords, distances, vehicle_capacity):
 
         # apply 2-opt in an attempt to optimize the already-optimized-via-greedy route
         optimized_group = two_opt(route, distances)
-        routes.append((optimized_group, calculate_distance(optimized_group, distances)))
+        routes.append(optimized_group)
 
     return routes
