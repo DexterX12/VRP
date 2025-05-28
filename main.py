@@ -1,6 +1,7 @@
 from vrp import calculate_vrp, calculate_distance
 from time import time
 from functools import reduce
+from graph import plot_optimized_routes
 
 def load_dataset():
     distances = list()
@@ -35,3 +36,7 @@ if __name__ == '__main__':
     
     shortest_route = min(found_routes, key=lambda x: x[1])
     print(shortest_route)
+    if shortest_route: # Asegúrate que se encontró una ruta
+     plot_optimized_routes(shortest_route, coordinates)
+    else:
+     print("No se encontraron rutas para graficar.")

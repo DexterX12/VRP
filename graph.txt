@@ -1,0 +1,64 @@
+[ INICIO ]
+     |
+     v
+[ main.py ] -> 1. load_dataset()
+     |           |--> Lee los archivos Coord.txt y Dist.txt
+     |           |--> Carga las coordenadas y la matriz de distancias en memoria
+     |
+     v
+[ Bucle de 60 segundos ] -------> Mientras el tiempo de ejecución sea menor a 60s
+     |
+     |----[Llamada a la función]----> [ vrp.py: calculate_vrp() ]
+     |                                      |
+     |                                      v
+     |                                  [ 3a. Clustering de Clientes ]
+     |                                      |--> Calcula ángulos polares desde el depósito
+     |                                      |--> Añade un pequeño valor aleatorio (gauss)
+     |                                      |--> Ordena los clientes por este ángulo
+     |                                      |
+     |                                      v
+     |                                  [ 3b. Agrupación por Vehículo ]
+     |                                      |--> Divide la lista ordenada en grupos
+     |                                           según la capacidad del vehículo
+     |                                      |
+     |                                      v
+     |                                  [ Bucle por cada grupo... ] ----> Para cada grupo de clientes
+     |                                      |                                  |
+     |                                      |----[Llamada a optimización]---> [ tsp.py: two_opt() ]
+     |                                      |                                  |--> Recibe una ruta (ej: [0, 5, 8, 0])
+     |                                      |                                  |--> Intenta mejorar la ruta
+     |                                      |                                  |    intercambiando tramos (descruzar)
+     |                                      |                                  |--> Devuelve la ruta optimizada
+     |                                      |<----[Ruta optimizada]------------|
+     |                                      |
+     |                                  <---[ Fin del bucle de grupos ]
+     |                                      |
+     |                                      v
+     |                                  [ 3d. Retornar Rutas ]
+     |                                      |--> Devuelve una lista con todas las rutas optimizadas
+     |                                           (una por cada vehículo)
+     |
+     |<----[Conjunto de rutas]--------------|
+     |
+     v
+[ Almacenar Solución ]
+     |--> Calcula la distancia total de las rutas recibidas
+     |--> Guarda la tupla (rutas, distancia_total) en la lista `found_routes`
+     |
+     ^------------------------------------[ Regresa al inicio del bucle de 60s ]
+
+
+[ Fin del Bucle (tiempo agotado) ]
+     |
+     v
+[ 5. Seleccionar la Mejor Ruta ]
+     |--> Revisa toda la lista `found_routes`
+     |--> `min(found_routes, key=lambda x: x[1])`
+     |--> Encuentra la tupla con la distancia total más pequeña
+     |
+     v
+[ 6. Imprimir Resultado ]
+     |--> Muestra en pantalla la mejor solución encontrada (rutas y distancia)
+     |
+     v
+[ FIN ]
