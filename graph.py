@@ -4,11 +4,11 @@ import numpy as np
 
 def plot_optimized_routes(solution, coordinates, title="Rutas Optimizadas de Vehículos"):
 
-    vehicle_routes = solution[0]
+    vehicle_routes = solution
     depot_coord = coordinates[0] 
 
     plt.style.use('seaborn-v0_8-whitegrid')
-    plt.figure(figsize=(14, 10)) 
+    plt.figure(figsize=(20, 10)) 
 
     num_vehicles = len(vehicle_routes)
     colors = cm.get_cmap('viridis', num_vehicles)(np.linspace(0, 1, num_vehicles))
